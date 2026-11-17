@@ -1,0 +1,28 @@
+const express = require('express');
+const { z } = require('zod');
+const controller = require('../controllers/adminController');
+const { requireAdmin, requireAuth } = require('../middleware/requireAuth');
+const { validateRequest } = require('../middleware/validateRequest');
+const { activeSchema, categorySchema, idParamSchema, listQuerySchema, orderStatusSchema, productSchema } = require('../validators/adminSchemas');
+
+const router = express.Router();
+router.use(requireAuth, requireAdmin);
+const pageQuery = listQuerySchema;
+const id = validateRequest(idParamSchema, 'params');
+router.get('/overview', controller.getOverview);
+router.post('/uploads/signature', controller.signImageUpload);
+router.get('/products', validateRequest(pageQuery, 'query'), controller.listProducts);
+router.post('/products', validateRequest(productSchema, 'body'), controller.createProduct);
+router.patch('/products/:id', id, validateRequest(productSchema, 'body'), controller.updateProduct);
+router.delete('/products/:id', id, controller.archiveProduct);
+router.get('/categories', controller.listCategories);
+router.post('/categories', validateRequest(categorySchema, 'body'), controller.createCategory);
+router.patch('/categories/:id', id, validateRequest(categorySchema, 'body'), controller.updateCategory);
+router.delete('/categories/:id', id, controller.deactivateCategory);
+router.get('/orders', validateRequest(pageQuery, 'query'), controller.listOrders);
+router.patch('/orders/:id/status', id, validateRequest(orderStatusSchema, 'body'), controller.updateOrderStatus);
+router.get('/customers', validateRequest(pageQuery, 'query'), controller.listCustomers);
+router.patch('/customers/:id', id, validateRequest(activeSchema, 'body'), controller.updateCustomer);
+router.get('/reviews', validateRequest(pageQuery, 'query'), controller.listReviews);
+router.delete('/reviews/:id', id, controller.deleteReview);
+module.exports = router;

@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+
+:root {
+  color-scheme: light;
+  --ink: #111827;
+  --violet: #7957ff;
+  --coral: #ff6b6b;
+  --lime: #c7f464;
+  --paper: #f8f7f4;
+  --surface: #ffffff;
+  --muted: #667085;
+  --line: #e7e7eb;
+  --font-sans: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-violet: var(--violet);
+  --color-coral: var(--coral);
+  --color-lime: var(--lime);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --font-sans: var(--font-sans);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-height: 100vh; }
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+::selection { background: #7957ff33; color: var(--ink); }
+:focus-visible { outline: 3px solid #7957ff80; outline-offset: 3px; }
+.gk-display { font-family: Arial, Helvetica, sans-serif; font-weight: 750; letter-spacing: -.075em; line-height: .94; }
+.gk-grain { position: relative; isolation: isolate; }
+.gk-grain::after { position: absolute; z-index: -1; pointer-events: none; content: ''; inset: 0; opacity: .12; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E"); }
+.gk-button { transition: transform .22s ease, box-shadow .22s ease, background-color .22s ease; }
+.gk-button:hover { transform: translateY(-2px); box-shadow: 0 12px 28px #11182722; }
+.gk-card { border: 1px solid #1118270c; background: var(--surface); box-shadow: 0 10px 34px #11182708; }
+.gk-image-zoom img { transition: transform .7s cubic-bezier(.2,.8,.2,1); }
+.gk-image-zoom:hover img { transform: scale(1.055); }
+@keyframes gk-float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-9px) rotate(1deg); } }
+.gk-float { animation: gk-float 6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
